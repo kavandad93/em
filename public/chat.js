@@ -104,9 +104,10 @@ async function sendMessage() {
 		let responseText = "";
 		let buffer = "";
 		const flushAssistantText = () => {
-			assistantTextEl.textContent = responseText;
-			chatMessages.scrollTop = chatMessages.scrollHeight;
-		};
+	const html = marked.parse(responseText || "");
+	assistantTextEl.innerHTML = DOMPurify.sanitize(html);
+	chatMessages.scrollTop = chatMessages.scrollHeight;
+};
 
 		let sawDone = false;
 		while (true) {
