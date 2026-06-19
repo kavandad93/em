@@ -104,10 +104,9 @@ async function sendMessage() {
 		let responseText = "";
 		let buffer = "";
 		const flushAssistantText = () => {
-	const html = marked.parse(responseText || "");
-	assistantTextEl.innerHTML = DOMPurify.sanitize(html);
-	chatMessages.scrollTop = chatMessages.scrollHeight;
-};
+			assistantTextEl.textContent = responseText;
+			chatMessages.scrollTop = chatMessages.scrollHeight;
+		};
 
 		let sawDone = false;
 		while (true) {
@@ -206,12 +205,7 @@ async function sendMessage() {
 function addMessageToChat(role, content) {
 	const messageEl = document.createElement("div");
 	messageEl.className = `message ${role}-message`;
-
-	// Markdown → HTML
-	const html = marked.parse(content || "");
-
-	messageEl.innerHTML = `<div class="md-content">${DOMPurify.sanitize(html)}</div>`;
-
+	messageEl.innerHTML = `<p>${content}</p>`;
 	chatMessages.appendChild(messageEl);
 
 	// Scroll to bottom
